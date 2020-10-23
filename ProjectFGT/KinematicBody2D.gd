@@ -10,7 +10,7 @@ var fall = GRAVITY
 
 
 func _physics_process(_delta):
-
+	
 	if Input.is_action_pressed("right"):
 		$Sprite.flip_h = false
 		_right_left_movement(speed1)
@@ -27,7 +27,7 @@ func _physics_process(_delta):
 		$Sprite.play("air")
 	motion = move_and_slide(motion, Vector2.UP)
 	motion.x = lerp(motion.x,0,1)
-
+	
 func _right_left_movement(rychlost):
 		$Sprite.play("walk")
 		if is_on_floor():
