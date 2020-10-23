@@ -1,0 +1,65 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_7.png" type="Texture" id=1]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_6.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_4.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_2.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_3.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_0.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_5.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_1.png" type="Texture" id=8]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/sprite_0.png-6055c6d833f7a3eda6432bb96050df35.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/sprite_1.png-71067ab75e468ddc7f726ab64a721c8b.stex"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/sprite_2.png-65aa122902f536b13d2f940c835f33da.stex"
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/sprite_3.png-ee2c420296bf907ff1f7f5d7284cb543.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/sprite_4.png-eced15d87a6cf97bffacdbc07cbcea78.stex"
+
+[sub_resource type="StreamTexture" id=6]
+flags = 4
+load_path = "res://.import/sprite_5.png-73ee11e423c072fe39d36e20f7de373c.stex"
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "sprint",
+"speed": 14.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 21.1812, 47.8749 )
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.374557, 0.320079 )
+shape = SubResource( 8 )
