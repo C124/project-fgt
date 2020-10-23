@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ASSETS/PLAYER/player_spriteframes.tres" type="SpriteFrames" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 26.4586
+height = 13.6679
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "sprint"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 14.554 )
+shape = SubResource( 1 )

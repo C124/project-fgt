@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://MainMenu/Play.gd" type="Script" id=1]
+
+[node name="Play" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 539.976 ],
+"_edit_vertical_guides_": [ 960.014 ]
+}
+
+[node name="NewGameButton" type="Button" parent="."]
+margin_left = 734.0
+margin_top = 542.0
+margin_right = 1185.0
+margin_bottom = 629.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEW GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SavesButton" type="Button" parent="."]
+margin_left = 734.0
+margin_top = 658.0
+margin_right = 1185.0
+margin_bottom = 745.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOAD GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 734.0
+margin_top = 773.0
+margin_right = 1185.0
+margin_bottom = 860.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="NewGameButton" to="." method="_on_NewGameButton_button_up"]
+[connection signal="button_up" from="SavesButton" to="." method="_on_SavesButton_button_up"]
+[connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]
