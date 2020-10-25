@@ -27,9 +27,8 @@ func _physics_process(_delta):
 		$Sprite.play("air")
 	motion = move_and_slide(motion, Vector2.UP)
 	motion.x = lerp(motion.x,0,1)
-	
+
 func _right_left_movement(rychlost):
-		$Sprite.play("walk")
 		if is_on_floor():
 			if Input.is_action_pressed("sprint"):
 				$Sprite.play("sprint")
@@ -39,6 +38,7 @@ func _right_left_movement(rychlost):
 			else:
 				rychlost = rychlost
 				movementPhase = "walk"
+				$Sprite.play("walk")
 		else:
 			match movementPhase:
 					"sprint":
@@ -48,6 +48,7 @@ func _right_left_movement(rychlost):
 					"idle":
 						rychlost = rychlost * 0.7
 		motion.x = rychlost
+
 func _fall_physics():
 			if fall > 45:
 				fall = 45
