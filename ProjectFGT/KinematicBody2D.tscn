@@ -1,82 +1,195 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=40 format=2]
 
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_7.png" type="Texture" id=1]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_6.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_4.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_2.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_3.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_0.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_5.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/PLAYER/SPRINTING/sprite_1.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_1.png" type="Texture" id=9]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_0.png" type="Texture" id=10]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_2.png" type="Texture" id=11]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_3.png" type="Texture" id=12]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_7.png" type="Texture" id=13]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_5.png" type="Texture" id=14]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_6.png" type="Texture" id=15]
-[ext_resource path="res://ASSETS/PLAYER/WALKING/sprite_4.png" type="Texture" id=16]
+[ext_resource path="res://ASSETS/PLAYER/SPRITESHEETS/spritesheets(1).png" type="Texture" id=1]
 
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/sprite_0.png-6055c6d833f7a3eda6432bb96050df35.stex"
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 396, 132, 132 )
 
-[sub_resource type="StreamTexture" id=2]
-flags = 4
-load_path = "res://.import/sprite_1.png-71067ab75e468ddc7f726ab64a721c8b.stex"
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 396, 132, 132 )
 
-[sub_resource type="StreamTexture" id=3]
-flags = 4
-load_path = "res://.import/sprite_2.png-65aa122902f536b13d2f940c835f33da.stex"
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 396, 132, 132 )
 
-[sub_resource type="StreamTexture" id=4]
-flags = 4
-load_path = "res://.import/sprite_3.png-ee2c420296bf907ff1f7f5d7284cb543.stex"
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 528, 132, 132 )
 
-[sub_resource type="StreamTexture" id=5]
-flags = 4
-load_path = "res://.import/sprite_4.png-eced15d87a6cf97bffacdbc07cbcea78.stex"
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 1 )
+region = Rect2( 660, 528, 132, 132 )
 
-[sub_resource type="StreamTexture" id=6]
-flags = 4
-load_path = "res://.import/sprite_5.png-73ee11e423c072fe39d36e20f7de373c.stex"
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 660, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 660, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 660, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 1 )
+region = Rect2( 396, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 528, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 1 )
+region = Rect2( 660, 0, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 396, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 528, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 660, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 792, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 924, 264, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 1 )
+region = Rect2( 396, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 1 )
+region = Rect2( 528, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 1 )
+region = Rect2( 660, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 792, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 1 )
+region = Rect2( 924, 132, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 528, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 1 )
+region = Rect2( 132, 528, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 1 )
+region = Rect2( 264, 528, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 1 )
+region = Rect2( 396, 528, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 1 )
+region = Rect2( 528, 528, 132, 132 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 1 )
+region = Rect2( 660, 528, 132, 132 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 10 ), SubResource( 39 ) ],
+"loop": true,
+"name": "airUp",
+"speed": 14.0
+}, {
+"frames": [ SubResource( 38 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "airDown",
+"speed": 14.0
+}, {
+"frames": [ SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ) ],
 "loop": true,
 "name": "idle",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 13 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "sprint",
+"speed": 14.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
 "name": "walk",
 "speed": 13.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "sprint",
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"loop": false,
+"name": "airTop",
 "speed": 14.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 21.1812, 47.8749 )
-
-[sub_resource type="Animation" id=9]
-resource_name = "sprint"
+extents = Vector2( 34.1079, 65.5372 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
-animation = "walk"
+animation = "idle"
+frame = 2
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.374557, 0.320079 )
 shape = SubResource( 8 )
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-method_call_mode = 1
-anims/sprint = SubResource( 9 )
