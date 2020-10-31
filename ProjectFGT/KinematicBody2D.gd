@@ -8,6 +8,8 @@ const GRAVITY = 30
 const JUMPFORCE = -1153
 var fall = GRAVITY
 var x = 1
+var jumpDisrupted = false
+var jumpDirecton : String
 
 var currentlyPlaying = null
 
@@ -15,14 +17,27 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("right"):
 		$Sprite.flip_h = false
 		_right_left_movement(speed1)
+		if !is_on_floor():
+			if jumpDirecton == "left":
+				jumpDisrupted = true
 	elif Input.is_action_pressed("left"):
 		$Sprite.flip_h = true
+		if !is_on_floor():
+			if jumpDirecton == "right":
+				jumpDisrupted = true
 		_right_left_movement(-speed1)
 	elif is_on_floor():
 		movementPhase = "idle"
 		_play("idle")
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		motion.y = JUMPFORCE
+		jumpDisrupted = false
+		if motion.x > 0:
+			jumpDirecton = "right"
+		elif motion.x < 0:
+			jumpDirecton = "left"
+		else:
+			jumpDirecton = "middle"
 	_fall_physics()
 	motion = move_and_slide(motion, Vector2.UP)
 	motion.x = lerp(motion.x,0,1)
@@ -39,7 +54,10 @@ func _right_left_movement(rychlost):
 				movementPhase = "walk"
 				_play("walk")
 		else:
-			match movementPhase:
+			if jumpDisrupted:
+				rychlost = rychlost * 0.8
+			else:
+				match movementPhase:
 					"sprint":
 						rychlost = rychlost * 1.83
 					"walk":
