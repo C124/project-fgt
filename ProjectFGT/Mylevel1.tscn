@@ -7,7 +7,7 @@
 [ext_resource path="res://Area2D.gd" type="Script" id=5]
 [ext_resource path="res://spikes.gd" type="Script" id=6]
 [ext_resource path="res://ASSETS/NiceTiles/SPIKE SINGLE-1.png.png" type="Texture" id=7]
-[ext_resource path="res://MovingPlatform.tscn" type="PackedScene" id=8]
+[ext_resource path="res://MOVINGplatform/MovingPlatform.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 159.665, 16 )
@@ -210,6 +210,6 @@ position = Vector2( 3685.39, 1887.13 )
 shape = SubResource( 6 )
 
 [node name="MovingPlatform" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2252.19, 3.5636 )
+position = Vector2( 2190.53, -71.9188 )
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="fallzone" to="Player" method="_on_fallzone_body_entered"]
