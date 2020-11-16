@@ -187,13 +187,20 @@ __meta__ = {
 [node name="spikes" type="TileMap" parent="."]
 tile_set = SubResource( 5 )
 format = 1
-tile_data = PoolIntArray( -589814, 0, 0 )
 script = ExtResource( 6 )
 
 [node name="enemies" type="Node2D" parent="."]
 
 [node name="Enemy1" parent="enemies" instance=ExtResource( 3 )]
 position = Vector2( 973.147, -143.976 )
+spawnFacing = "right"
+
+[node name="Enemy2" parent="enemies" instance=ExtResource( 3 )]
+position = Vector2( 7805.06, 1029.46 )
+spawnFacing = "right"
+
+[node name="Enemy3" parent="enemies" instance=ExtResource( 3 )]
+position = Vector2( 4055.37, 3 )
 spawnFacing = "left"
 
 [node name="fallzone" type="Area2D" parent="."]

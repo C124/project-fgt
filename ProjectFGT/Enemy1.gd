@@ -4,7 +4,7 @@ onready var player = get_parent().get_parent().get_node("Player")
 export var spawnFacing: String
 
 var motion = Vector2(0,0)
-const ENEMYSPEED = 400
+const ENEMYSPEED = 330
 var speed1 = ENEMYSPEED
 const GRAVITY = 40
 var fall = GRAVITY
@@ -13,10 +13,10 @@ var enemyState: String = "calm"
 
 func _ready():
 	if spawnFacing == "right":
-		direction = -1
-	if spawnFacing == "left":
 		direction = 1
-	
+	if spawnFacing == "left":
+		direction = -1
+	scale.x = direction
 	
 func _physics_process(delta):
 	if is_on_floor():
@@ -73,7 +73,7 @@ func _on_sight_body_entered(body):
 	print(!$RayCast2DWall.is_colliding())
 	if body == player:
 		enemyState = "charged"
-		speed1 = ENEMYSPEED * 0.75
+		speed1 = ENEMYSPEED * 1.75
 
 func _on_sight_body_exited(body):
 	if body == player:
