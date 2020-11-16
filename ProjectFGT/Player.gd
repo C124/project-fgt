@@ -7,41 +7,43 @@ var speed1 = PLEYERSPEED
 const GRAVITY = 30
 const JUMPFORCE = -1153
 var fall = GRAVITY
-var x = 1
 var jumpDisrupted = false
 var jumpDirecton : String
+var hp = 1
 
 var currentlyPlaying = null
 
 func _physics_process(_delta):
-	if Input.is_action_pressed("right"):
-		$Sprite.flip_h = false
-		_right_left_movement(speed1)
-		if !is_on_floor():
-			if jumpDirecton == "left":
-				jumpDisrupted = true
-	elif Input.is_action_pressed("left"):
-		$Sprite.flip_h = true
-		if !is_on_floor():
-			if jumpDirecton == "right":
-				jumpDisrupted = true
-		_right_left_movement(-speed1)
-	elif is_on_floor():
-		movementPhase = "idle"
-		_play("idle")
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		motion.y = JUMPFORCE
-		jumpDisrupted = false
-		if motion.x > 0:
-			jumpDirecton = "right"
-		elif motion.x < 0:
-			jumpDirecton = "left"
-		else:
-			jumpDirecton = "middle"
-	_fall_physics()
-	motion = move_and_slide(motion, Vector2.UP)
-	motion.x = lerp(motion.x,0,1)
-	
+	if hp > 0:
+		if Input.is_action_pressed("right"):
+			$Sprite.flip_h = false
+			_right_left_movement(speed1)
+			if !is_on_floor():
+				if jumpDirecton == "left":
+					jumpDisrupted = true
+		elif Input.is_action_pressed("left"):
+			$Sprite.flip_h = true
+			if !is_on_floor():
+				if jumpDirecton == "right":
+					jumpDisrupted = true
+			_right_left_movement(-speed1)
+		elif is_on_floor():
+			movementPhase = "idle"
+			_play("idle")
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			motion.y = JUMPFORCE
+			jumpDisrupted = false
+			if motion.x > 0:
+				jumpDirecton = "right"
+			elif motion.x < 0:
+				jumpDirecton = "left"
+			else:
+				jumpDirecton = "middle"
+		_fall_physics()
+		motion = move_and_slide(motion, Vector2.UP)
+		motion.x = lerp(motion.x,0,1)
+	else:
+		get_tree().reload_current_scene()
 
 func _right_left_movement(rychlost):
 		if is_on_floor():
@@ -70,12 +72,11 @@ func _fall_physics():
 			if fall > 53:
 				fall = 53
 			fall += fall/10
-			motion.y += fall
+
 			if is_on_floor():
 				fall = 40
+
 			else: 
-				print(motion.y)
-				print(currentlyPlaying)
 				if motion.y > JUMPFORCE/2 && motion.y < -JUMPFORCE/2 :
 					_play("airTop")
 				elif motion.y < JUMPFORCE/2:
@@ -83,7 +84,11 @@ func _fall_physics():
 				else:
 					_play("airDown")
 
+			motion.y += fall
 func _play(animName):
 	currentlyPlaying = animName
 	$Sprite.play(animName)
 	
+
+func _on_fallzone_body_entered(body):
+	hp = 0
