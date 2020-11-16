@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://MainMenu/NewGameSaves.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=2]
+[ext_resource path="res://Background 3-1.png.png" type="Texture" id=3]
+
+[node name="NewGameSaves" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 959.994 ]
+}
+
+[node name="Background 3-1png" type="Sprite" parent="."]
+position = Vector2( 960, 540 )
+texture = ExtResource( 3 )
+
+[node name="SaveNumber1Button" type="Button" parent="."]
+margin_left = 550.0
+margin_top = 415.0
+margin_right = 809.0
+margin_bottom = 672.0
+text = "SAVE NUMBER 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveNumber2Button" type="Button" parent="."]
+margin_left = 832.0
+margin_top = 415.0
+margin_right = 1091.0
+margin_bottom = 672.0
+text = "SAVE NUMBER 2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveNumber3Button" type="Button" parent="."]
+margin_left = 1111.0
+margin_top = 415.0
+margin_right = 1370.0
+margin_bottom = 672.0
+text = "SAVE NUMBER 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="TextureButton" parent="."]
+margin_left = 734.0
+margin_top = 717.0
+margin_right = 1186.0
+margin_bottom = 811.0
+texture_normal = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="SaveNumber1Button" to="." method="_on_SaveNumber1Button_button_up"]
+[connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]

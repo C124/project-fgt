@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://MainMenu/Play.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/buttons/loadgamebutton.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/buttons/newgamebutton.png" type="Texture" id=4]
+[ext_resource path="res://Background 3-1.png.png" type="Texture" id=5]
+
+[node name="Play" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 539.976 ],
+"_edit_vertical_guides_": [ 960.014 ]
+}
+
+[node name="Background 3-1png" type="Sprite" parent="."]
+position = Vector2( 960, 540 )
+texture = ExtResource( 5 )
+
+[node name="NewGameButton" type="TextureButton" parent="."]
+margin_left = 734.0
+margin_top = 542.0
+margin_right = 1186.0
+margin_bottom = 636.0
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadGameButton" type="TextureButton" parent="."]
+margin_left = 734.0
+margin_top = 658.0
+margin_right = 1186.0
+margin_bottom = 752.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="TextureButton" parent="."]
+margin_left = 734.0
+margin_top = 773.0
+margin_right = 1186.0
+margin_bottom = 867.0
+texture_normal = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="NewGameButton" to="." method="_on_NewGameButton_button_up"]
+[connection signal="button_up" from="LoadGameButton" to="." method="_on_LoadGameButton_button_up"]
+[connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]
