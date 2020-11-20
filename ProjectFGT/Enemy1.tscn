@@ -41,7 +41,7 @@ tracks/0/keys = {
 extents = Vector2( 29.8565, 49.3556 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 401.428, 143.554 )
+extents = Vector2( 401.428, 202.901 )
 
 [node name="Enemy1" type="KinematicBody2D"]
 position = Vector2( 0, 3 )
@@ -51,7 +51,7 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 8
-frame = 4
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/sprint = SubResource( 1 )
@@ -62,12 +62,12 @@ position = Vector2( 0, 16.6865 )
 shape = SubResource( 3 )
 
 [node name="RayCast2DPit" type="RayCast2D" parent="."]
-position = Vector2( 34.2666, 0 )
+position = Vector2( 30.01, 0 )
 enabled = true
 cast_to = Vector2( 0, 66.272 )
 
 [node name="RayCast2DWall" type="RayCast2D" parent="."]
-position = Vector2( 29.6925, 0.03125 )
+position = Vector2( 29, -1 )
 rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 4 )
@@ -75,8 +75,16 @@ cast_to = Vector2( 0, 4 )
 [node name="sight" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sight"]
+position = Vector2( -0.093956, -47.223 )
 shape = SubResource( 4 )
 
-[node name="attackbox" type="Area2D" parent="."]
+[node name="bodyKncokBackArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bodyKncokBackArea"]
+visible = false
+position = Vector2( -1.47689, -0.00897908 )
+scale = Vector2( 0.895368, 1.00739 )
+polygon = PoolVector2Array( -33.9359, 65.7466, 37.4094, 65.3123, 37.28, -29.0101, 0.153194, -56.2988, -34.2696, -28.3596 )
 [connection signal="body_entered" from="sight" to="." method="_on_sight_body_entered"]
 [connection signal="body_exited" from="sight" to="." method="_on_sight_body_exited"]
+[connection signal="body_entered" from="bodyKncokBackArea" to="." method="_on_bodyKncokBackArea_body_entered"]

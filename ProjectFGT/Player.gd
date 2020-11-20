@@ -92,3 +92,6 @@ func _play(animName):
 
 func _on_fallzone_body_entered(body):
 	hp = 0
+
+func _knock_back():
+	print("kncokback")

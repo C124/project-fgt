@@ -4,9 +4,8 @@ const IDLE_DURATION =  1.0
 
 export var move_to = Vector2.RIGHT * 192
 export var speed = 15.0
-
 var follow = Vector2.ZERO
-
+export var size : int = 1
 onready var platfrom = $platform
 onready var tween = $Move
 
@@ -21,4 +20,5 @@ func _init_tween():
 	
 
 func _physics_process(delta):
+	$platform/AnimationPlayer.play("size" + str(size))
 	platfrom.position = platfrom.position.linear_interpolate(follow,0.075)
