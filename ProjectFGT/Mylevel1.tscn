@@ -201,6 +201,7 @@ position = Vector2( 3685.39, 1887.13 )
 shape = SubResource( 6 )
 
 [node name="MovingPlatform" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2375.36, -16.2431 )
+position = Vector2( 3253.36, 171.757 )
+move_to = Vector2( 0, 200 )
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="fallzone" to="Player" method="_on_fallzone_body_entered"]

@@ -3,7 +3,7 @@ extends KinematicBody2D
 var motion = Vector2(0,0)
 var movementPhase: String
 const PLEYERSPEED = 533
-var speed1 = PLEYERSPEED
+var airInertia = 0
 const GRAVITY = 30
 const JUMPFORCE = -1153
 var fall = GRAVITY
@@ -16,34 +16,36 @@ var currentlyPlaying = null
 func _physics_process(_delta):
 	if hp > 0:
 		if Input.is_action_pressed("right"):
-			$Sprite.flip_h = false
-			_right_left_movement(speed1)
+			$Sprite1.flip_h = false
+			_right_left_movement(PLEYERSPEED)
 			if !is_on_floor():
 				if jumpDirecton == "left":
 					jumpDisrupted = true
 		elif Input.is_action_pressed("left"):
-			$Sprite.flip_h = true
+			$Sprite1.flip_h = true
 			if !is_on_floor():
 				if jumpDirecton == "right":
 					jumpDisrupted = true
-			_right_left_movement(-speed1)
+			_right_left_movement(-PLEYERSPEED)
 		elif is_on_floor():
 			movementPhase = "idle"
 			_play("idle")
+		else:
+			_jump_inertia()
+			
 		if Input.is_action_just_pressed("jump") and is_on_floor():
-			motion.y = JUMPFORCE
-			jumpDisrupted = false
-			if motion.x > 0:
-				jumpDirecton = "right"
-			elif motion.x < 0:
-				jumpDirecton = "left"
-			else:
-				jumpDirecton = "middle"
+			_jump_physics()
+
 		_fall_physics()
 		motion = move_and_slide(motion, Vector2.UP)
 		motion.x = lerp(motion.x,0,1)
 	else:
 		get_tree().reload_current_scene()
+
+
+
+
+
 
 func _right_left_movement(rychlost):
 		if is_on_floor():
@@ -85,9 +87,38 @@ func _fall_physics():
 					_play("airDown")
 
 			motion.y += fall
+
+
+func _jump_physics():
+	motion.y = JUMPFORCE
+	jumpDisrupted = false
+	if motion.x > 0:
+		jumpDirecton = "right"
+	elif motion.x < 0:
+		jumpDirecton = "left"
+	else:
+		jumpDirecton = "middle"
+
+
+
+func _jump_inertia():
+	if !jumpDisrupted:
+				match jumpDirecton:
+					"middle":
+						airInertia = 0
+					"right":
+						airInertia = PLEYERSPEED
+					"left":
+						airInertia = -PLEYERSPEED
+				if movementPhase == "sprint":
+					airInertia *= 1.53
+				print(airInertia)
+				motion.x = airInertia
+
+
 func _play(animName):
 	currentlyPlaying = animName
-	$Sprite.play(animName)
+	$AnimationPlayer.play(animName)
 	
 
 func _on_fallzone_body_entered(body):
