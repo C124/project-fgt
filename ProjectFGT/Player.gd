@@ -10,30 +10,43 @@ var fall = GRAVITY
 var jumpDisrupted = false
 var jumpDirecton : String
 var hp = 1
+var isAttacking: bool = false
+var direction: int = 1
 
 var currentlyPlaying = null
 
 func _physics_process(_delta):
 	if hp > 0:
-		if Input.is_action_pressed("right"):
-			$Sprite1.flip_h = false
+		
+		if Input.is_action_just_pressed("LMB") && !isAttacking:
+			if is_on_floor():
+				motion.x = 0
+				_play("lightAtt1")
+				isAttacking = true
+		elif Input.is_action_just_pressed("RMB") && !isAttacking:
+			if is_on_floor():
+				motion.x = 0
+				_play("lightAtt2")
+				isAttacking = true
+		elif Input.is_action_pressed("right") && !isAttacking:
+			_flip_player_right()
 			_right_left_movement(PLEYERSPEED)
 			if !is_on_floor():
 				if jumpDirecton == "left":
 					jumpDisrupted = true
-		elif Input.is_action_pressed("left"):
-			$Sprite1.flip_h = true
+		elif Input.is_action_pressed("left") && !isAttacking:
+			_flip_player_left()
 			if !is_on_floor():
 				if jumpDirecton == "right":
 					jumpDisrupted = true
 			_right_left_movement(-PLEYERSPEED)
-		elif is_on_floor():
+		elif is_on_floor() && !isAttacking:
 			movementPhase = "idle"
 			_play("idle")
 		else:
 			_jump_inertia()
 			
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking:
 			_jump_physics()
 
 		_fall_physics()
@@ -102,22 +115,34 @@ func _jump_physics():
 
 
 func _jump_inertia():
-	if !jumpDisrupted:
-				match jumpDirecton:
-					"middle":
-						airInertia = 0
-					"right":
-						airInertia = PLEYERSPEED
-					"left":
-						airInertia = -PLEYERSPEED
-				if movementPhase == "sprint":
-					airInertia *= 1.53
-				print(airInertia)
-				motion.x = airInertia
+	if is_on_floor():
+		airInertia = 0
+	else:
+		if !jumpDisrupted:
+			match jumpDirecton:
+				"middle":
+					airInertia = 0
+				"right":
+					airInertia = PLEYERSPEED
+				"left":
+					airInertia = -PLEYERSPEED
+			if movementPhase == "sprint":
+				airInertia *= 1.53
+			motion.x = airInertia
 
+
+func _flip_player_right():
+	if direction != 1:
+		direction = 1
+		scale.x = -1
+	
+	
+func _flip_player_left():
+	if direction != -1:
+		direction = -1
+		scale.x = -1
 
 func _play(animName):
-	currentlyPlaying = animName
 	$AnimationPlayer.play(animName)
 	
 
@@ -126,3 +151,11 @@ func _on_fallzone_body_entered(body):
 
 func _knock_back():
 	print("kncokback")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "lightAtt1" || "lightAtt2":
+		isAttacking = false
+
+func _hit_player():
+	hp -= 1

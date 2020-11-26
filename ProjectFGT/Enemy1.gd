@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var player = get_parent().get_parent().get_node("Player")
+onready var player = get_parent().get_parent().get_parent().get_node("Player")
 export var spawnFacing: String = "right"
 
 var motion = Vector2(0,0)
@@ -10,6 +10,9 @@ const GRAVITY = 40
 var fall = GRAVITY
 var direction
 var enemyState: String = "calm"
+var max_hp = 1
+var hp
+
 
 func _ready():
 	if spawnFacing == "right":
@@ -17,24 +20,26 @@ func _ready():
 	if spawnFacing == "left":
 		direction = -1
 	scale.x = direction
-	
+	hp = max_hp
+
 func _physics_process(delta):
-	if is_on_floor():
-		if enemyState == "calm":
-			speed1 = ENEMYSPEED
-			$AnimationPlayer.play("walk")
-		elif enemyState == "charged":
-			speed1 = ENEMYSPEED * 2
-			$AnimationPlayer.play("sprint")
-			if player.global_position.x - 70 > global_position.x:
-				_flip_enemy_right()
-			elif player.global_position.x + 70 < global_position.x:
-				_flip_enemy_left()
-				
+	if hp > 0:
+		if is_on_floor():
+			if enemyState == "calm":
+				speed1 = ENEMYSPEED
+				$AnimationPlayer.play("walk")
+			elif enemyState == "charged":
+				speed1 = ENEMYSPEED * 2
+				$AnimationPlayer.play("sprint")
+				if player.global_position.x - 200 > global_position.x:
+					_flip_enemy_right()
+				elif player.global_position.x + 200 < global_position.x:
+					_flip_enemy_left()
+	else:
+		queue_free()
 	
 	
 	_fall_physics()
-	#rint(speed1)
 	motion.x = speed1 * direction
 	motion = move_and_slide(motion, Vector2.UP)
 	
@@ -82,4 +87,11 @@ func _on_sight_body_exited(body):
 
 func _on_bodyKncokBackArea_body_entered(body):
 	if body == player:
+		player._hit_player()
 		player._knock_back()
+		player
+
+func _on_hurtBox_area_entered(body):
+	print("aaa")
+	if body.is_in_group("sword_dmg1"):
+		hp -= 1
