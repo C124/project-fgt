@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://world_set.tres" type="TileSet" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://ASSETS/NiceTiles/SPIKE SINGLE-1.png.png" type="Texture" id=7]
 [ext_resource path="res://MOVINGplatform/MovingPlatform.tscn" type="PackedScene" id=8]
 [ext_resource path="res://one_way_tiles.res" type="TileSet" id=9]
+[ext_resource path="res://NeutralSlime.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 159.665, 16 )
@@ -131,7 +132,7 @@ script = ExtResource( 6 )
 [node name="enemy1" type="Node" parent="enemies"]
 
 [node name="Enemy1" parent="enemies/enemy1" instance=ExtResource( 3 )]
-position = Vector2( 855.072, -91.3214 )
+position = Vector2( 2772.24, 124.191 )
 collision_layer = 2147483664
 collision_mask = 2147483651
 
@@ -153,7 +154,13 @@ position = Vector2( 6779.28, 49.5175 )
 [node name="Node3" type="Node" parent="enemies"]
 
 [node name="Enemy1" parent="enemies/Node3" instance=ExtResource( 3 )]
-position = Vector2( 810.677, 81.1592 )
+position = Vector2( 4802.15, 112.588 )
+
+[node name="Node4" type="Node" parent="enemies"]
+
+[node name="NeutralSlime" parent="enemies/Node4" instance=ExtResource( 10 )]
+position = Vector2( 1299.66, 97.5807 )
+spawnFacing = "left"
 
 [node name="void" type="Area2D" parent="."]
 position = Vector2( 3685.39, 1887.13 )
