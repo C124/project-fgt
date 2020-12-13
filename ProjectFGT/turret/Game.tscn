@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://turret/turret.tscn" type="PackedScene" id=1]
+
+[node name="Game" type="Node2D"]
+
+[node name="Turret" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1003, 576.395 )

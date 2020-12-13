@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://turret/turret.gd" type="Script" id=1]
+[ext_resource path="res://turret/1.jpg" type="Texture" id=2]
+
+[node name="Turret" type="Node2D"]
+position = Vector2( 1029.94, 540.476 )
+
+[node name="turret" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+bullet_delay = 1.0
+
+[node name="Sprite" type="Sprite" parent="turret"]
+position = Vector2( -1.15759, 0.837891 )
+scale = Vector2( 0.4202, 0.382618 )
+texture = ExtResource( 2 )

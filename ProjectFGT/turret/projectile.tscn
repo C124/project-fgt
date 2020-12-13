@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://turret/projectile.gd" type="Script" id=1]
+[ext_resource path="res://turret/Fuck-Jdm-Decal-Sticker--15542.1511156257_1024x1024.webp" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 28.4685
+
+[node name="projectile" type="Node2D"]
+position = Vector2( 0.700424, 0.675407 )
+
+[node name="projectile" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+speed_y = 0
+speed_x = -500
+point_of_detroy = 900
+
+[node name="Sprite" type="Sprite" parent="projectile"]
+position = Vector2( -0.44469, -0.509407 )
+scale = Vector2( 0.0587166, 0.0608968 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile"]
+position = Vector2( 0, 0.749153 )
+shape = SubResource( 1 )
