@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://turret/turret.gd" type="Script" id=1]
+[ext_resource path="res://turret/New_Piskel2.png" type="Texture" id=2]
+
+[node name="Turret" type="Node2D"]
+position = Vector2( 1029.94, 540.476 )
+
+[node name="turret" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+bullet_delay = 1.0
+
+[node name="Sprite" type="Sprite" parent="turret"]
+position = Vector2( 0.179047, -0.0336227 )
+rotation = 3.14159
+scale = Vector2( 1.11229, 1.1428 )
+texture = ExtResource( 2 )
