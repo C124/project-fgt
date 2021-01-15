@@ -17,7 +17,6 @@ _global_script_class_icons={
 
 config/name="Project F.G.T."
 run/main_scene="res://MainMenu/Main Menu.tscn"
-config/icon="res://icon.png"
 
 [display]
 

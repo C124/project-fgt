@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://turret/turret.gd" type="Script" id=1]
-[ext_resource path="res://turret/New_Piskel2.png" type="Texture" id=2]
+[ext_resource path="res://CODE/COMPONENTS/TILESET1/turret/turret.gd" type="Script" id=1]
+[ext_resource path="res://CODE/COMPONENTS/TILESET1/turret/New_Piskel2.png" type="Texture" id=2]
+
 
 [node name="Turret" type="Node2D"]
 position = Vector2( 1029.94, 540.476 )

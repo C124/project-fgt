@@ -1,9 +1,11 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://MOVINGplatform/MovingPlatform.gd" type="Script" id=1]
+[ext_resource path="res://CODE/COMPONENTS/TILESET1/MOVING-PLATFORM/MovingPlatform.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/components/movingPlatforms/Moving platform size 1.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/components/movingPlatforms/Moving platform size 2.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/components/movingPlatforms/Moving platform size 3.png" type="Texture" id=4]
+
+
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 191.907, 18.6784 )
