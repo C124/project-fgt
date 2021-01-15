@@ -60,7 +60,6 @@ format = 1
 tile_data = PoolIntArray( -196619, 0, 0, -196618, 0, 0, -65549, 0, 0, -65548, 0, 0, -65545, 0, 0, -65544, 0, 0, -65512, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65566, 0, 0 )
 
 [node name="SOLID tiles" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 96, 96 )
 cell_clip_uv = true
