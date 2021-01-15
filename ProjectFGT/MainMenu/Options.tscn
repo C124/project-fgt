@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://MainMenu/Options.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/buttons/soundsbutton.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/buttons/creditsbutton.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/buttons/controlsbutton.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/buttons/screenbutton.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=7]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,56 +15,56 @@ __meta__ = {
 "_edit_vertical_guides_": [ 960.024 ]
 }
 
-[node name="BackButton" type="Button" parent="."]
+[node name="Background 3-1png" type="Sprite" parent="."]
+position = Vector2( 960, 540 )
+texture = ExtResource( 7 )
+
+[node name="BackButton" type="TextureButton" parent="."]
 margin_left = 734.0
 margin_top = 677.0
-margin_right = 1185.0
-margin_bottom = 764.0
-text = "BACK"
+margin_right = 774.0
+margin_bottom = 717.0
+texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CreditsButton" type="Button" parent="."]
+[node name="CreditsButton" type="TextureButton" parent="."]
 margin_left = 494.0
 margin_top = 555.0
-margin_right = 945.0
-margin_bottom = 642.0
-rect_pivot_offset = Vector2( 334.385, -235.815 )
-text = "CREDITS"
+margin_right = 946.0
+margin_bottom = 649.0
+texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ControlsButton" type="Button" parent="."]
+[node name="ControlsButton" type="TextureButton" parent="."]
 margin_left = 976.0
 margin_top = 555.0
-margin_right = 1427.0
-margin_bottom = 642.0
-rect_pivot_offset = Vector2( 334.385, -235.815 )
-text = "CONTROLS"
+margin_right = 1428.0
+margin_bottom = 649.0
+texture_normal = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScreenButton" type="Button" parent="."]
+[node name="ScreenButton" type="TextureButton" parent="."]
 margin_left = 494.0
 margin_top = 438.0
-margin_right = 945.0
-margin_bottom = 525.0
-rect_pivot_offset = Vector2( 334.385, -235.815 )
-text = "SCREEN"
+margin_right = 946.0
+margin_bottom = 532.0
+texture_normal = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SoundsButton" type="Button" parent="."]
+[node name="SoundsButton" type="TextureButton" parent="."]
 margin_left = 976.0
 margin_top = 438.0
-margin_right = 1427.0
-margin_bottom = 525.0
-rect_pivot_offset = Vector2( 334.385, -235.815 )
-text = "SOUNDS"
+margin_right = 1428.0
+margin_bottom = 532.0
+texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
