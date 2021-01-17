@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 
-onready var player = get_parent().get_parent().get_parent().get_node("Player")
 export var spawnFacing: String = "right"
 
 var motion = Vector2(0,0)
@@ -42,7 +41,6 @@ func _physics_process(delta):
 	if is_on_floor():
 		if !$RayCast2DPit.is_colliding():
 			_flip_enemy()
-			print("zeme")
 
 func _fall_physics():
 			if fall > 53:

@@ -3,7 +3,6 @@
 [ext_resource path="res://CODE/ENEMIES/NEUTRAL/NeutralSlime.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/ENEMIES/neutral enemy/New Piskel.png" type="Texture" id=2]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24.1962, 12.0662 )
 
@@ -44,9 +43,11 @@ anims/crawl = SubResource( 2 )
 position = Vector2( -25.6719, 56.8684 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 2
 
 [node name="RayCast2DWall" type="RayCast2D" parent="."]
 position = Vector2( -24.2163, 56.541 )
 rotation = 1.57079
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 2

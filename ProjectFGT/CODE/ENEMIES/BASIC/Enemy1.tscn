@@ -67,22 +67,22 @@ position = Vector2( 0, 16.6865 )
 shape = SubResource( 3 )
 
 [node name="RayCast2DPit" type="RayCast2D" parent="."]
-position = Vector2( 30.01, 0 )
+position = Vector2( 28.5968, 0.348286 )
 enabled = true
 cast_to = Vector2( 0, 66.272 )
-collision_mask = 16
+collision_mask = 2
 
 [node name="RayCast2DWall" type="RayCast2D" parent="."]
 position = Vector2( 29, -1 )
 rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 4 )
-collision_mask = 16
+collision_mask = 2
 
 [node name="sight" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sight"]
-position = Vector2( -0.093956, -47.223 )
+position = Vector2( -0.219236, -46.7915 )
 shape = SubResource( 4 )
 
 [node name="bodyKncokBackArea" type="Area2D" parent="."]
