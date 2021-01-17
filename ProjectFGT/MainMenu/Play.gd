@@ -20,12 +20,11 @@ func _on_NewGameButton_button_up():
 	get_tree().change_scene("res://MainMenu/NewGameSaves.tscn")
 	pass # Replace with function body.
 
-
-func _on_SavesButton_button_up():
-	get_tree().change_scene("res://MainMenu/LoadGameSaves.tscn")
+func _on_BackButton_button_up():
+	get_tree().change_scene("res://MainMenu/Main Menu.tscn")
 	pass # Replace with function body.
 
 
-func _on_BackButton_button_up():
-	get_tree().change_scene("res://MainMenu/Main Menu.tscn")
+func _on_LoadGameButton_button_up():
+	get_tree().change_scene("res://MainMenu/LoadGameSaves.tscn")
 	pass # Replace with function body.
