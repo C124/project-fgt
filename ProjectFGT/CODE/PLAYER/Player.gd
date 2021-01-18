@@ -12,6 +12,8 @@ var jumpDirecton : String
 var hp = 1
 var isAttacking: bool = false
 var direction: int = 1
+var isJumping: bool
+var snap: Vector2
 
 var currentlyPlaying = null
 
@@ -48,9 +50,12 @@ func _physics_process(_delta):
 			
 		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking:
 			_jump_physics()
+		
 
 		_fall_physics()
-		motion = move_and_slide(motion, Vector2.UP)
+		_evaluate_snap()
+		snap = Vector2.DOWN * 32 if !isJumping else Vector2.DOWN
+		motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
 		motion.x = lerp(motion.x,0,1)
 	else:
 		get_tree().reload_current_scene()
@@ -103,6 +108,8 @@ func _fall_physics():
 
 
 func _jump_physics():
+	print(Vector2.DOWN * 32)
+	
 	motion.y = JUMPFORCE
 	jumpDisrupted = false
 	if motion.x > 0:
@@ -159,3 +166,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _hit_player():
 	hp -= 1
+
+func _evaluate_snap():
+	if(motion.y <= 0):
+		isJumping = true
+	else:
+		isJumping = false

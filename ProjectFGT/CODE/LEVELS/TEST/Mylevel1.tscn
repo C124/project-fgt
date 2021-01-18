@@ -227,8 +227,8 @@ position = Vector2( 3250.98, 93.2693 )
 move_to = Vector2( 200, 0 )
 
 [node name="MovingPlatform2" parent="components" instance=ExtResource( 8 )]
-position = Vector2( 6047.9, 645.619 )
-move_to = Vector2( 0, 1000 )
+position = Vector2( 2118.76, 131.881 )
+move_to = Vector2( 0, 500 )
 size = 2
 
 [node name="Enemies" type="Node" parent="."]
