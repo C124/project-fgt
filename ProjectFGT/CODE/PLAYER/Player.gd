@@ -1,19 +1,31 @@
 extends KinematicBody2D
 
 var motion = Vector2(0,0)
+
 var movementPhase: String
-const PLEYERSPEED = 533
+const PLAYERSPEED = 533
+const ACCELERATION = 2000
+var speed = 0
+var desired_speed = 0
+
 var airInertia = 0
 const GRAVITY = 30
 const JUMPFORCE = -1153
 var fall = GRAVITY
 var jumpDisrupted = false
 var jumpDirecton : String
-var hp = 1
-var isAttacking: bool = false
+var speedBeforeJump: int
+
 var direction: int = 1
+var prevDirection: int
 var isJumping: bool
+
+var isAttacking: bool = false
+var hp = 1
+
+
 var snap: Vector2
+var slide: float
 
 var currentlyPlaying = null
 
@@ -32,7 +44,7 @@ func _physics_process(_delta):
 				isAttacking = true
 		elif Input.is_action_pressed("right") && !isAttacking:
 			_flip_player_right()
-			_right_left_movement(PLEYERSPEED)
+			_right_left_movement(direction, _delta)
 			if !is_on_floor():
 				if jumpDirecton == "left":
 					jumpDisrupted = true
@@ -41,8 +53,9 @@ func _physics_process(_delta):
 			if !is_on_floor():
 				if jumpDirecton == "right":
 					jumpDisrupted = true
-			_right_left_movement(-PLEYERSPEED)
+			_right_left_movement(direction, _delta)
 		elif is_on_floor() && !isAttacking:
+			speed = 0
 			movementPhase = "idle"
 			_play("idle")
 		else:
@@ -51,12 +64,11 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking:
 			_jump_physics()
 		
-
 		_fall_physics()
 		_evaluate_snap()
 		snap = Vector2.DOWN * 32 if !isJumping else Vector2.DOWN
 		motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
-		motion.x = lerp(motion.x,0,1)
+		motion.x = lerp(motion.x,0,slide)
 	else:
 		get_tree().reload_current_scene()
 
@@ -65,28 +77,37 @@ func _physics_process(_delta):
 
 
 
-func _right_left_movement(rychlost):
+func _right_left_movement(index, _delta):
+		_evaluate_slide()	
+		if(prevDirection != direction):
+			speed = 0
+		desired_speed = PLAYERSPEED * index
 		if is_on_floor():
 			if Input.is_action_pressed("sprint"):
-				rychlost = 1.53 * rychlost
+				desired_speed *= 1.53  
 				movementPhase = "sprint"
 				_play("sprint")
 			else:
-				rychlost = rychlost
 				movementPhase = "walk"
 				_play("walk")
 		else:
 			if jumpDisrupted:
-				rychlost = rychlost * 0.8
+				desired_speed *= 0.8
 			else:
 				match movementPhase:
 					"sprint":
-						rychlost = rychlost * 1.83
+						desired_speed *= 1.83
 					"walk":
-						rychlost = rychlost
+						pass
+						#so far nothing
 					"idle":
-						rychlost = rychlost * 0.8
-		motion.x = rychlost
+						desired_speed *= 0.8
+				speed = desired_speed
+		if(abs(speed) > abs(desired_speed)):
+			speed = desired_speed
+		else:
+			speed += ACCELERATION * _delta * index
+		motion.x = speed
 
 func _fall_physics():
 			if fall > 53:
@@ -108,13 +129,13 @@ func _fall_physics():
 
 
 func _jump_physics():
-	print(Vector2.DOWN * 32)
-	
+	speedBeforeJump = speed
+	print(speedBeforeJump)
 	motion.y = JUMPFORCE
 	jumpDisrupted = false
-	if motion.x > 0:
+	if Input.is_action_pressed("right"):
 		jumpDirecton = "right"
-	elif motion.x < 0:
+	elif Input.is_action_pressed("left"):
 		jumpDirecton = "left"
 	else:
 		jumpDirecton = "middle"
@@ -122,6 +143,7 @@ func _jump_physics():
 
 
 func _jump_inertia():
+	
 	if is_on_floor():
 		airInertia = 0
 	else:
@@ -130,21 +152,23 @@ func _jump_inertia():
 				"middle":
 					airInertia = 0
 				"right":
-					airInertia = PLEYERSPEED
+					airInertia = PLAYERSPEED
 				"left":
-					airInertia = -PLEYERSPEED
+					airInertia = -PLAYERSPEED
 			if movementPhase == "sprint":
 				airInertia *= 1.53
 			motion.x = airInertia
 
 
 func _flip_player_right():
+	prevDirection = direction	
 	if direction != 1:
 		direction = 1
 		scale.x = -1
 	
 	
 func _flip_player_left():
+	prevDirection = direction	
 	if direction != -1:
 		direction = -1
 		scale.x = -1
@@ -172,3 +196,11 @@ func _evaluate_snap():
 		isJumping = true
 	else:
 		isJumping = false
+
+func _evaluate_slide():
+	if(abs(speed)>750):
+		slide = 0.2
+	elif(abs(speed)>400):
+		slide = 0.5
+	else:
+		slide = 0.6

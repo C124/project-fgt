@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
-onready var player
 export var spawnFacing: String = "right"
+onready var player = get_node("../../../Player")
+export var shit: int
 
 var motion = Vector2(0,0)
 const ENEMYSPEED = 100
@@ -10,7 +11,7 @@ const GRAVITY = 40
 var fall = GRAVITY
 var direction
 var enemyState: String = "calm"
-var max_hp = 1
+var max_hp = 1 
 var hp
 
 
@@ -29,7 +30,7 @@ func _physics_process(delta):
 				speed1 = ENEMYSPEED
 				$AnimationPlayer.play("walk")
 			elif enemyState == "charged":
-				speed1 = ENEMYSPEED * 3
+				speed1 = ENEMYSPEED * 4
 				$AnimationPlayer.play("sprint")
 				if player.global_position.x - 200 > global_position.x:
 					_flip_enemy_right()
@@ -45,12 +46,10 @@ func _physics_process(delta):
 	
 	if $RayCast2DWall.is_colliding():
 		_flip_enemy()
-		print("wall")
 		enemyState = "calm"
 
 	if is_on_floor():
 		if !$RayCast2DPit.is_colliding():
-			print("pit")
 			_flip_enemy()
 			enemyState = "calm"
 
@@ -93,6 +92,5 @@ func _on_bodyKncokBackArea_body_entered(body):
 		player._knock_back()
 
 func _on_hurtBox_area_entered(body):
-	print("aaa")
 	if body.is_in_group("sword_dmg1"):
 		hp -= 1

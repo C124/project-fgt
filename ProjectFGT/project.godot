@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="Project F.G.T."
 run/main_scene="res://MainMenu/Main Menu.tscn"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=1920
