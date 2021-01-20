@@ -66,7 +66,6 @@ func _physics_process(_delta):
 		
 		_fall_physics()
 		_evaluate_snap()
-		snap = Vector2.DOWN * 32 if !isJumping else Vector2.DOWN
 		motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
 		motion.x = lerp(motion.x,0,slide)
 	else:
@@ -78,7 +77,7 @@ func _physics_process(_delta):
 
 
 func _right_left_movement(index, _delta):
-		_evaluate_slide()	
+		_evaluate_slide()
 		if(prevDirection != direction):
 			speed = 0
 		desired_speed = PLAYERSPEED * index
@@ -193,9 +192,9 @@ func _hit_player():
 
 func _evaluate_snap():
 	if(motion.y <= 0):
-		isJumping = true
+		snap = Vector2.DOWN
 	else:
-		isJumping = false
+		snap = Vector2.DOWN*32
 
 func _evaluate_slide():
 	if(abs(speed)>750):

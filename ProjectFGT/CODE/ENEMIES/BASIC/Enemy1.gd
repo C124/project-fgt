@@ -36,18 +36,28 @@ func _physics_process(delta):
 					_flip_enemy_right()
 				elif player.global_position.x + 200 < global_position.x:
 					_flip_enemy_left()
+			elif enemyState == "attack":
+				_combat()
+			elif enemyState == "idle":
+				$AnimationPlayer.play("idle")
+				speed1 = 0
+			_checkObstacles()
 	else:
 		queue_free()
-	
-	
 	_fall_physics()
 	motion.x = speed1 * direction
 	motion = move_and_slide(motion, Vector2.UP)
+	motion.x = lerp(motion.x,0,0.2)
 	
+
+func _combat():
+	$AnimationPlayer.play("attack")
+	
+
+func _checkObstacles():
 	if $RayCast2DWall.is_colliding():
 		_flip_enemy()
 		enemyState = "calm"
-
 	if is_on_floor():
 		if !$RayCast2DPit.is_colliding():
 			_flip_enemy()
@@ -70,27 +80,36 @@ func _flip_enemy_right():
 		direction = 1
 		scale.x = -1
 	
-	
 func _flip_enemy_left():
 	if direction != -1:
 		direction = -1
 		scale.x = -1
 
-
 func _on_sight_body_entered(body):
 	if body == player:
+		print("bum")
 		enemyState = "charged"
 
 func _on_sight_body_exited(body):
-	if body == player:
+	if body == player && enemyState != "attack":
 		enemyState = "calm"
 
-
-func _on_bodyKncokBackArea_body_entered(body):
-	if body == player:
-		player._hit_player()
-		player._knock_back()
-
-func _on_hurtBox_area_entered(body):
+func _on_hitBox_area_entered(body):
 	if body.is_in_group("sword_dmg1"):
 		hp -= 1
+
+func _set_speed(value):
+	speed1 = value
+	print(value)
+
+func _on_attackActivation_body_entered(body):
+	if(body == player):
+		enemyState = "attack"
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if(anim_name == "attack"):
+		enemyState = "idle"
+
+func _on_attackBox_body_entered(body):
+	if(body == player):
+		player._hit_player()

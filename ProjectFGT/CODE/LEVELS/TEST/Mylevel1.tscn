@@ -115,7 +115,7 @@ one_way_collision = true
 [node name="Player" parent="." groups=[
 "player",
 ] instance=ExtResource( 2 )]
-position = Vector2( 2371.25, -180.372 )
+position = Vector2( 1964.7, -161.352 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -129,9 +129,6 @@ drag_margin_left = 0.05
 drag_margin_top = 0.05
 drag_margin_right = 0.05
 editor_draw_limits = true
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 557.177, 450.822 )
@@ -242,6 +239,7 @@ size = 2
 [node name="Node" type="Node" parent="Enemies"]
 
 [node name="Enemy1" parent="Enemies/Node" instance=ExtResource( 3 )]
+position = Vector2( 403.63, 124.089 )
 
 [node name="Node2" type="Node" parent="Enemies"]
 
@@ -250,15 +248,5 @@ position = Vector2( 403.2, 126.992 )
 collision_mask = 2147483650
 
 [node name="Node3" type="Node" parent="Enemies"]
-
-[node name="Enemy1" parent="Enemies/Node3" instance=ExtResource( 3 )]
-position = Vector2( 1080.89, 44.4344 )
-
-[node name="Enemy2" parent="Enemies/Node3" instance=ExtResource( 3 )]
-position = Vector2( 4015.2, 40.3755 )
-spawnFacing = "left"
-
-[node name="Enemy3" parent="Enemies/Node3" instance=ExtResource( 3 )]
-position = Vector2( 581.99, 72.4117 )
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="void" to="Player" method="_on_fallzone_body_entered"]
