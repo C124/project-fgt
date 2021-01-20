@@ -348,7 +348,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 65.9099, 32.6851 )
+extents = Vector2( 106.868, 32.6851 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_mask = 14
@@ -369,23 +369,25 @@ anims/sprint = SubResource( 8 )
 anims/walk = SubResource( 9 )
 
 [node name="Sprite1" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 8
-frame = 19
+frame = 40
 
 [node name="Sprite2" type="Sprite" parent="."]
 position = Vector2( 0, -6 )
 texture = ExtResource( 3 )
 vframes = 2
 hframes = 5
+frame = 5
 
 [node name="AttackBox" type="Area2D" parent="." groups=[
 "sword_dmg1",
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2( 98.4188, 0 )
+position = Vector2( 60, 0 )
 shape = SubResource( 10 )
 disabled = true
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
