@@ -2,7 +2,7 @@
 
 [ext_resource path="res://MainMenu/Play.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/buttons/loadgamebutton.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/buttons/not available in the demo 452x94.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/buttons/newgamebutton.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=5]
 
@@ -47,5 +47,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="button_up" from="NewGameButton" to="." method="_on_NewGameButton_button_up"]
-[connection signal="button_up" from="LoadGameButton" to="." method="_on_LoadGameButton_button_up"]
 [connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]

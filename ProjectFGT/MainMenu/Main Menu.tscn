@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MainMenu/Main Menu.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/buttons/playbutton.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/buttons/exitbutton.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/buttons/optionsbutton.png" type="Texture" id=5]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,32 +13,36 @@ __meta__ = {
 "_edit_vertical_guides_": [ 959.975 ]
 }
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="Background 3-1png" type="Sprite" parent="."]
+position = Vector2( 960, 540 )
+texture = ExtResource( 2 )
+
+[node name="PlayButton" type="TextureButton" parent="."]
 margin_left = 734.0
 margin_top = 542.0
 margin_right = 1185.0
 margin_bottom = 629.0
-text = "PLAY"
+texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionsButton" type="Button" parent="."]
+[node name="OptionsButton" type="TextureButton" parent="."]
 margin_left = 734.0
 margin_top = 658.0
 margin_right = 1185.0
 margin_bottom = 745.0
-text = "OPTIONS"
+texture_normal = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="TextureButton" parent="."]
 margin_left = 734.0
 margin_top = 773.0
 margin_right = 1185.0
 margin_bottom = 860.0
-text = "EXIT"
+texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

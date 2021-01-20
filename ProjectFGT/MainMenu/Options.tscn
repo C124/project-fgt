@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MainMenu/Options.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/buttons/soundsbutton.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/buttons/not available in the demo 452x94.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/buttons/creditsbutton.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/buttons/controlsbutton.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/buttons/screenbutton.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=7]
 
 [node name="Node2D" type="Node2D"]
@@ -44,7 +42,7 @@ margin_left = 976.0
 margin_top = 555.0
 margin_right = 1428.0
 margin_bottom = 649.0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -54,7 +52,7 @@ margin_left = 494.0
 margin_top = 438.0
 margin_right = 946.0
 margin_bottom = 532.0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -70,6 +68,3 @@ __meta__ = {
 }
 [connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]
 [connection signal="button_up" from="CreditsButton" to="." method="_on_CreditsButton_button_up"]
-[connection signal="button_up" from="ControlsButton" to="." method="_on_ControlsButton_button_up"]
-[connection signal="button_up" from="ScreenButton" to="." method="_on_ScreenButton_button_up"]
-[connection signal="button_up" from="SoundsButton" to="." method="_on_SoundsButton_button_up"]
