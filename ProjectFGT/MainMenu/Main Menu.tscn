@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://MainMenu/Main Menu.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/buttons/playbutton.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/buttons/exitbutton.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/buttons/optionsbutton.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/components/Texts/title.png" type="Texture" id=6]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -46,6 +47,11 @@ texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="title" type="Sprite" parent="."]
+position = Vector2( 960, 326.142 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
 [connection signal="button_up" from="PlayButton" to="." method="_on_PlayButton_button_up"]
 [connection signal="button_up" from="OptionsButton" to="." method="_on_OptionsButton_button_up"]
 [connection signal="button_up" from="ExitButton" to="." method="_on_ExitButton_button_up"]

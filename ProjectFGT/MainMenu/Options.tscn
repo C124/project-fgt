@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://MainMenu/Options.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/buttons/not available in the demo 452x94.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/buttons/backbutton.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/buttons/creditsbutton.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/components/Texts/title.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/Backgrounds/Background 3-1.png.png" type="Texture" id=7]
 
 [node name="Node2D" type="Node2D"]
@@ -19,9 +20,9 @@ texture = ExtResource( 7 )
 
 [node name="BackButton" type="TextureButton" parent="."]
 margin_left = 734.0
-margin_top = 677.0
-margin_right = 774.0
-margin_bottom = 717.0
+margin_top = 789.0
+margin_right = 1185.0
+margin_bottom = 883.0
 texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -29,9 +30,9 @@ __meta__ = {
 
 [node name="CreditsButton" type="TextureButton" parent="."]
 margin_left = 494.0
-margin_top = 555.0
+margin_top = 667.0
 margin_right = 946.0
-margin_bottom = 649.0
+margin_bottom = 761.0
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,9 +40,9 @@ __meta__ = {
 
 [node name="ControlsButton" type="TextureButton" parent="."]
 margin_left = 976.0
-margin_top = 555.0
+margin_top = 667.0
 margin_right = 1428.0
-margin_bottom = 649.0
+margin_bottom = 761.0
 texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,9 +50,9 @@ __meta__ = {
 
 [node name="ScreenButton" type="TextureButton" parent="."]
 margin_left = 494.0
-margin_top = 438.0
+margin_top = 550.0
 margin_right = 946.0
-margin_bottom = 532.0
+margin_bottom = 644.0
 texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -59,12 +60,17 @@ __meta__ = {
 
 [node name="SoundsButton" type="TextureButton" parent="."]
 margin_left = 976.0
-margin_top = 438.0
+margin_top = 550.0
 margin_right = 1428.0
-margin_bottom = 532.0
+margin_bottom = 644.0
 texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="title" type="Sprite" parent="."]
+position = Vector2( 960, 326.142 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
 [connection signal="button_up" from="BackButton" to="." method="_on_BackButton_button_up"]
 [connection signal="button_up" from="CreditsButton" to="." method="_on_CreditsButton_button_up"]
