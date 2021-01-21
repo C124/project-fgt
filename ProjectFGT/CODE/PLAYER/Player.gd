@@ -69,7 +69,7 @@ func _physics_process(_delta):
 		motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
 		motion.x = lerp(motion.x,0,slide)
 	else:
-		get_tree().reload_current_scene()
+		get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
 
 
 
