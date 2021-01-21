@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://CODE/PLAYER/Player.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/PLAYER/SPRITESHEETS/LightAttack1 clone clone.png" type="Texture" id=4]
@@ -57,7 +57,7 @@ tracks/0/keys = {
 "values": [ 74, 75, 76 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=5]
 resource_name = "dying"
 length = 1.14286
 step = 0.0714286
@@ -74,8 +74,53 @@ tracks/0/keys = {
 "values": [ 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72 ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "hit"
+[sub_resource type="Animation" id=6]
+resource_name = "heavyAttack"
+length = 0.714286
+step = 0.0714286
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0714286, 0.142857, 0.214286, 0.285714, 0.357143, 0.428571, 0.5, 0.571429, 0.642857 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackBox/heavyCollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.285714, 0.642857, 0.714286 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.284, 0.568 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 500 ],
+"method": "_set_speed"
+}, {
+"args": [ 0 ],
+"method": "_set_speed"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
 step = 0.0714286
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -90,8 +135,7 @@ tracks/0/keys = {
 "values": [ 42, 43, 44, 45, 46, 47, 48 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "idle"
+[sub_resource type="Animation" id=8]
 length = 0.857143
 step = 0.142857
 tracks/0/type = "value"
@@ -107,8 +151,7 @@ tracks/0/keys = {
 "values": [ 20, 21, 22, 23, 24, 25 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "lightAtt1"
+[sub_resource type="Animation" id=9]
 length = 0.357143
 step = 0.0714286
 tracks/0/type = "value"
@@ -136,8 +179,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "lightAtt2"
+[sub_resource type="Animation" id=10]
 length = 0.357143
 step = 0.0714286
 tracks/0/type = "value"
@@ -152,9 +194,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 5, 6, 7, 8, 9 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0714286, 0.285714, 0.357143 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
 
-[sub_resource type="Animation" id=9]
-resource_name = "sprint"
+[sub_resource type="Animation" id=11]
 length = 0.615385
 step = 0.0769231
 tracks/0/type = "value"
@@ -170,8 +223,7 @@ tracks/0/keys = {
 "values": [ 34, 35, 36, 37, 38, 39, 40, 41 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "walk"
+[sub_resource type="Animation" id=12]
 length = 0.571429
 step = 0.0714286
 tracks/0/type = "value"
@@ -187,8 +239,11 @@ tracks/0/keys = {
 "values": [ 26, 27, 28, 29, 30, 31, 32, 33 ]
 }
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 106.868, 32.6851 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 53, 145.563 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_mask = 14
@@ -199,7 +254,7 @@ position = Vector2( 2, -58 )
 texture = ExtResource( 4 )
 vframes = 9
 hframes = 10
-frame = 83
+frame = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -208,13 +263,14 @@ shape = SubResource( 1 )
 anims/airDown = SubResource( 2 )
 anims/airTop = SubResource( 3 )
 anims/airUp = SubResource( 4 )
-anims/dying = SubResource( 11 )
-anims/hit = SubResource( 12 )
-anims/idle = SubResource( 5 )
-anims/lightAtt1 = SubResource( 6 )
-anims/lightAtt2 = SubResource( 7 )
-anims/sprint = SubResource( 9 )
-anims/walk = SubResource( 8 )
+anims/dying = SubResource( 5 )
+anims/heavyAttack = SubResource( 6 )
+anims/hit = SubResource( 7 )
+anims/idle = SubResource( 8 )
+anims/lightAtt1 = SubResource( 9 )
+anims/lightAtt2 = SubResource( 10 )
+anims/sprint = SubResource( 11 )
+anims/walk = SubResource( 12 )
 
 [node name="AttackBox" type="Area2D" parent="." groups=[
 "sword_dmg1",
@@ -222,7 +278,15 @@ anims/walk = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
 position = Vector2( 60, -5.66965 )
-shape = SubResource( 10 )
+shape = SubResource( 13 )
 disabled = true
+
+[node name="heavyCollision" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2( 99.4366, 0 )
+rotation = 1.5708
+shape = SubResource( 14 )
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AttackBox" to="." method="_on_AttackBox_area_entered"]

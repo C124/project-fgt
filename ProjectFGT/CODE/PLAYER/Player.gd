@@ -31,16 +31,15 @@ var currentlyPlaying = null
 
 func _physics_process(_delta):
 	if hp > 0:
-		if Input.is_action_just_pressed("LMB") && !isAttacking:
+		if Input.is_action_just_pressed("LMB")  && !isAttacking:
 			if is_on_floor():
-				motion.x = 0
 				_play("lightAtt1")
-				isAttacking = true
-		elif Input.is_action_just_pressed("RMB") && !isAttacking:
-			if is_on_floor():
 				motion.x = 0
-				_play("lightAtt2")
-				isAttacking = true
+				_combat()
+		if Input.is_action_just_pressed("RMB")  && !isAttacking:
+			if is_on_floor():
+				_play("heavyAttack")
+				_combat()
 		elif Input.is_action_pressed("right") && !isAttacking:
 			_flip_player_right()
 			_right_left_movement(direction, _delta)
@@ -65,7 +64,7 @@ func _physics_process(_delta):
 		
 		
 	else:
-		_die()
+		_evaluate_death()
 	_fall_physics()
 	_evaluate_snap()
 	motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
@@ -74,7 +73,8 @@ func _physics_process(_delta):
 
 
 
-
+func _combat():
+	isAttacking = true
 
 func _right_left_movement(index, _delta):
 		_evaluate_slide()
@@ -126,7 +126,6 @@ func _fall_physics():
 			print(fall)
 			motion.y += fall
 
-
 func _jump_physics():
 	speedBeforeJump = speed
 	print(speedBeforeJump)
@@ -138,8 +137,6 @@ func _jump_physics():
 		jumpDirecton = "left"
 	else:
 		jumpDirecton = "middle"
-
-
 
 func _jump_inertia():
 	
@@ -158,14 +155,12 @@ func _jump_inertia():
 				airInertia *= 1.53
 			motion.x = airInertia
 
-
 func _flip_player_right():
 	prevDirection = direction	
 	if direction != 1:
 		direction = 1
 		scale.x = -1
-	
-	
+
 func _flip_player_left():
 	prevDirection = direction	
 	if direction != -1:
@@ -174,17 +169,12 @@ func _flip_player_left():
 
 func _play(animName):
 	$AnimationPlayer.play(animName)
-	
-
-func _on_fallzone_body_entered(body):
-	hp = 0
 
 func _knock_back():
 	print("kncokback")
 
-
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "lightAtt1" || anim_name == "lightAtt2":
+	if anim_name == "lightAtt1" || anim_name == "lightAtt2" || anim_name == "heavyAttack":
 		isAttacking = false
 		print(anim_name)
 	elif anim_name == "dying":
@@ -207,6 +197,15 @@ func _evaluate_slide():
 	else:
 		slide = 0.6
 
-func _die():
+func _evaluate_death():
 	if is_on_floor():
-		$AnimationPlayer.play("dying")
+		_die()
+
+func _set_speed(value: int):
+	motion.x = value * direction
+
+func _on_fallzone_body_entered(body):
+	get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
+
+func _die():
+	$AnimationPlayer.play("dying")
