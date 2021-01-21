@@ -31,7 +31,6 @@ var currentlyPlaying = null
 
 func _physics_process(_delta):
 	if hp > 0:
-		
 		if Input.is_action_just_pressed("LMB") && !isAttacking:
 			if is_on_floor():
 				motion.x = 0
@@ -64,12 +63,13 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking:
 			_jump_physics()
 		
-		_fall_physics()
-		_evaluate_snap()
-		motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
-		motion.x = lerp(motion.x,0,slide)
+		
 	else:
-		get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
+		_die()
+	_fall_physics()
+	_evaluate_snap()
+	motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
+	motion.x = lerp(motion.x,0,slide)
 
 
 
@@ -123,7 +123,7 @@ func _fall_physics():
 					_play("airUp")
 				else:
 					_play("airDown")
-
+			print(fall)
 			motion.y += fall
 
 
@@ -184,8 +184,11 @@ func _knock_back():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "lightAtt1" || "lightAtt2":
+	if anim_name == "lightAtt1" || anim_name == "lightAtt2":
 		isAttacking = false
+		print(anim_name)
+	elif anim_name == "dying":
+		get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
 
 func _hit_player():
 	hp -= 1
@@ -203,3 +206,7 @@ func _evaluate_slide():
 		slide = 0.5
 	else:
 		slide = 0.6
+
+func _die():
+	if is_on_floor():
+		$AnimationPlayer.play("dying")

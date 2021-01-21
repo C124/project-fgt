@@ -130,6 +130,21 @@ drag_margin_top = 0.05
 drag_margin_right = 0.05
 editor_draw_limits = true
 
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="Enemies"]
+
+[node name="Enemy1" parent="Enemies/Node" instance=ExtResource( 3 )]
+position = Vector2( 403.63, 124.089 )
+
+[node name="Node2" type="Node" parent="Enemies"]
+
+[node name="NeutralSlime" parent="Enemies/Node2" instance=ExtResource( 10 )]
+position = Vector2( 403.2, 126.992 )
+collision_mask = 2147483650
+
+[node name="Node3" type="Node" parent="Enemies"]
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 557.177, 450.822 )
 script = ExtResource( 5 )
@@ -233,20 +248,5 @@ move_to = Vector2( 200, 0 )
 position = Vector2( 2118.76, 131.881 )
 move_to = Vector2( 0, 500 )
 size = 2
-
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Node" type="Node" parent="Enemies"]
-
-[node name="Enemy1" parent="Enemies/Node" instance=ExtResource( 3 )]
-position = Vector2( 403.63, 124.089 )
-
-[node name="Node2" type="Node" parent="Enemies"]
-
-[node name="NeutralSlime" parent="Enemies/Node2" instance=ExtResource( 10 )]
-position = Vector2( 403.2, 126.992 )
-collision_mask = 2147483650
-
-[node name="Node3" type="Node" parent="Enemies"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="void" to="Player" method="_on_fallzone_body_entered"]

@@ -107,8 +107,10 @@ func _on_attackActivation_body_entered(body):
 		enemyState = "attack"
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if(anim_name == "attack"):
+	if anim_name == "attack":
 		enemyState = "idle"
+	elif anim_name == "idle":
+		enemyState = "calm"
 
 func _on_attackBox_body_entered(body):
 	if(body == player):
