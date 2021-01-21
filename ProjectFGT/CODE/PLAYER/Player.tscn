@@ -288,5 +288,7 @@ shape = SubResource( 14 )
 disabled = true
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.192
+one_shot = true
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AttackBox" to="." method="_on_AttackBox_area_entered"]

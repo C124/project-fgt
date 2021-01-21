@@ -23,23 +23,23 @@ var isJumping: bool
 var isAttacking: bool = false
 var hp = 1
 
-
 var snap: Vector2
 var slide: float
 
 var currentlyPlaying = null
 
+var lastLightAttack = 1
+
 func _physics_process(_delta):
 	if hp > 0:
 		if Input.is_action_just_pressed("LMB")  && !isAttacking:
 			if is_on_floor():
-				_play("lightAtt1")
 				motion.x = 0
-				_combat()
+				_L_combat(lastLightAttack)
 		if Input.is_action_just_pressed("RMB")  && !isAttacking:
 			if is_on_floor():
 				_play("heavyAttack")
-				_combat()
+				isAttacking = true
 		elif Input.is_action_pressed("right") && !isAttacking:
 			_flip_player_right()
 			_right_left_movement(direction, _delta)
@@ -73,8 +73,17 @@ func _physics_process(_delta):
 
 
 
-func _combat():
+func _L_combat(value: int):
 	isAttacking = true
+	if $Timer.is_stopped():
+		lastLightAttack = 1
+	else:
+		lastLightAttack *= -1
+	
+	if lastLightAttack == 1:
+		_play("lightAtt1")
+	else:
+		_play("lightAtt2")
 
 func _right_left_movement(index, _delta):
 		_evaluate_slide()
@@ -123,7 +132,6 @@ func _fall_physics():
 					_play("airUp")
 				else:
 					_play("airDown")
-			print(fall)
 			motion.y += fall
 
 func _jump_physics():
@@ -175,6 +183,8 @@ func _knock_back():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "lightAtt1" || anim_name == "lightAtt2" || anim_name == "heavyAttack":
+		if anim_name != "heavyAttack":
+			$Timer.start()
 		isAttacking = false
 		print(anim_name)
 	elif anim_name == "dying":
