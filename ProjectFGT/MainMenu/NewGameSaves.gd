@@ -22,5 +22,5 @@ func _on_BackButton_button_up():
 
 
 func _on_SaveNumber1Button_button_up():
-	get_tree().change_scene("res://CODE/LEVELS/TEST/Mylevel1.tscn")
+	get_tree().change_scene("res://Levels/Level1/Level1.tscn")
 	pass # Replace with function body.
