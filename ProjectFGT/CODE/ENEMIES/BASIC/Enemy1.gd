@@ -87,7 +87,6 @@ func _flip_enemy_left():
 
 func _on_sight_body_entered(body):
 	if body == player:
-		print("bum")
 		enemyState = "charged"
 
 func _on_sight_body_exited(body):
@@ -100,7 +99,6 @@ func _on_hitBox_area_entered(body):
 
 func _set_speed(value):
 	speed1 = value
-	print(value)
 
 func _on_attackActivation_body_entered(body):
 	if(body == player):
@@ -114,4 +112,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_attackBox_body_entered(body):
 	if(body == player):
-		player._hit_player()
+		player._hit_player(1)
+		if player._get_HP() > 0:
+			player._knock_back(direction,-1000,-700)
+		
