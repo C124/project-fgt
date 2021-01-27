@@ -10,16 +10,16 @@
 [ext_resource path="res://CODE/COMPONENTS/TILESET1/MOVING-PLATFORM/MovingPlatform.tscn" type="PackedScene" id=8]
 [ext_resource path="res://CODE/TILES/TILESET1/one_way_tiles.res" type="TileSet" id=9]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 288, 16 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 47.6297, 204.96 )
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
-[sub_resource type="TileSet" id=5]
+[sub_resource type="TileSet" id=4]
 0/name = "SPIKE SINGLE-1.png.png 0"
 0/texture = ExtResource( 7 )
 0/tex_offset = Vector2( 0, 0 )
@@ -30,19 +30,19 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 4 )
+0/shape = SubResource( 3 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 4607.18, 62.3873 )
 
 [node name="Mylevel1" type="Node2D"]
@@ -84,7 +84,7 @@ format = 1
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ONE-WAY tiles/StaticBody2D"]
 position = Vector2( -1267.24, -775.323 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 disabled = true
 one_way_collision = true
 
@@ -121,6 +121,8 @@ position = Vector2( 4183.39, 129.129 )
 [node name="Enemy2" parent="Enemies/Node2" instance=ExtResource( 3 )]
 position = Vector2( 7449.11, 1116.91 )
 
+[node name="Enemy3" parent="Enemies/Node2" instance=ExtResource( 3 )]
+
 [node name="Node3" type="Node" parent="Enemies"]
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -130,12 +132,12 @@ script = ExtResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 2328.22, 94.9093 )
 scale = Vector2( 10, 1 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 1330.41, 137.672 )
 scale = Vector2( 10, 1 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Area2D2" type="Area2D" parent="."]
 position = Vector2( 557.177, 450.822 )
@@ -144,10 +146,10 @@ script = ExtResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 position = Vector2( 7206.66, 33.7313 )
 scale = Vector2( 10, 1 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="spikes" type="TileMap" parent="."]
-tile_set = SubResource( 5 )
+tile_set = SubResource( 4 )
 format = 1
 script = ExtResource( 6 )
 
@@ -155,7 +157,7 @@ script = ExtResource( 6 )
 position = Vector2( 3685.39, 1887.13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="void"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="to-delete-unused" type="Node" parent="."]
 

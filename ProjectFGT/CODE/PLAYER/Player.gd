@@ -5,8 +5,8 @@ var motion = Vector2(0,0)
 var movementPhase: String
 const PLAYERSPEED = 533
 const ACCELERATION = 2000
-var speed = 0
-var desired_speed = 0
+var speed = 0 #original speed during acceleration, which occurs only when changing directions
+var desired_speed = 0 #final speed during acceleration, can be used for long lasting static speed
 
 var airInertia = 0
 const GRAVITY = 30
@@ -21,7 +21,8 @@ var prevDirection: int
 var isJumping: bool
 
 var isAttacking: bool = false
-var hp = 1
+var isBeingHit: bool = false
+var hp = 4
 
 var snap: Vector2
 var slide: float
@@ -32,21 +33,21 @@ var lastLightAttack = 1
 
 func _physics_process(_delta):
 	if hp > 0:
-		if Input.is_action_just_pressed("LMB")  && !isAttacking:
+		if Input.is_action_just_pressed("LMB")  && !isAttacking && !isBeingHit:
 			if is_on_floor():
-				motion.x = 0
+				_common_combat()
 				_L_combat(lastLightAttack)
-		if Input.is_action_just_pressed("RMB")  && !isAttacking:
+		if Input.is_action_just_pressed("RMB")  && !isAttacking && !isBeingHit:
 			if is_on_floor():
-				_play("heavyAttack")
-				isAttacking = true
-		elif Input.is_action_pressed("right") && !isAttacking:
+				_common_combat()
+				_R_combat()
+		elif Input.is_action_pressed("right") && !isAttacking && !isBeingHit:
 			_flip_player_right()
 			_right_left_movement(direction, _delta)
 			if !is_on_floor():
 				if jumpDirecton == "left":
 					jumpDisrupted = true
-		elif Input.is_action_pressed("left") && !isAttacking:
+		elif Input.is_action_pressed("left") && !isAttacking && !isBeingHit:
 			_flip_player_left()
 			if !is_on_floor():
 				if jumpDirecton == "right":
@@ -55,36 +56,51 @@ func _physics_process(_delta):
 		elif is_on_floor() && !isAttacking:
 			speed = 0
 			movementPhase = "idle"
-			_play("idle")
+			if isBeingHit && motion.y >= 0:
+				_play("heavyFall")
+			elif !isBeingHit:
+				_play("idle")
+		elif isBeingHit:
+			motion.x = desired_speed
 		else:
 			_jump_inertia()
-			
-		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking:
-			_jump_physics()
-		
-		
+
+		if Input.is_action_just_pressed("jump") && is_on_floor() && !isAttacking && !isBeingHit:
+			_jump_physics(JUMPFORCE)
 	else:
 		_evaluate_death()
+
 	_fall_physics()
 	_evaluate_snap()
 	motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
-	motion.x = lerp(motion.x,0,slide)
+	if !isAttacking:
+		motion.x = lerp(motion.x,0,slide)
 
 
 
-
+#COMBAT METHODS
 func _L_combat(value: int):
+	_set_speed(0)
 	isAttacking = true
 	if $Timer.is_stopped():
 		lastLightAttack = 1
 	else:
 		lastLightAttack *= -1
-	
 	if lastLightAttack == 1:
 		_play("lightAtt1")
 	else:
 		_play("lightAtt2")
 
+func _R_combat():
+	_set_speed(0)
+	_play("heavyAttack")
+
+func _common_combat():
+	desired_speed = 0
+	speed = 0
+	isAttacking = true
+
+#MOVEMENT METHODS
 func _right_left_movement(index, _delta):
 		_evaluate_slide()
 		if(prevDirection != direction):
@@ -117,6 +133,31 @@ func _right_left_movement(index, _delta):
 			speed += ACCELERATION * _delta * index
 		motion.x = speed
 
+func _knock_back(sourceDirection: int,height: int, strength: int):
+	isBeingHit = true
+	_play("hit")
+	$AttackBox/CollisionShape2D.set_disabled(true)
+	$AttackBox/heavyCollision.set_disabled(true)
+	_jump_physics(height)
+	print(sourceDirection)
+	_set_speed(sourceDirection * strength,false)
+	print(desired_speed)
+
+func _evaluate_snap():
+	if(motion.y <= 0):
+		snap = Vector2.DOWN
+	else:
+		snap = Vector2.DOWN*32
+
+func _evaluate_slide():
+	if(abs(speed)>750):
+		slide = 0.2
+	elif(abs(speed)>400):
+		slide = 0.5
+	else:
+		slide = 0.6
+
+#IN AIR METHODS (FALL, JUMP, INERTIA)
 func _fall_physics():
 			if fall > 53:
 				fall = 53
@@ -124,8 +165,7 @@ func _fall_physics():
 
 			if is_on_floor():
 				fall = 40
-
-			else: 
+			elif !isBeingHit: 
 				if motion.y > JUMPFORCE/2 && motion.y < -JUMPFORCE/2 :
 					_play("airTop")
 				elif motion.y < JUMPFORCE/2:
@@ -134,17 +174,17 @@ func _fall_physics():
 					_play("airDown")
 			motion.y += fall
 
-func _jump_physics():
-	speedBeforeJump = speed
-	print(speedBeforeJump)
-	motion.y = JUMPFORCE
-	jumpDisrupted = false
-	if Input.is_action_pressed("right"):
-		jumpDirecton = "right"
-	elif Input.is_action_pressed("left"):
-		jumpDirecton = "left"
-	else:
-		jumpDirecton = "middle"
+func _jump_physics(force: int):
+	if(force == JUMPFORCE):
+		speedBeforeJump = speed
+		jumpDisrupted = false
+		if Input.is_action_pressed("right"):
+			jumpDirecton = "right"
+		elif Input.is_action_pressed("left"):
+			jumpDirecton = "left"
+		else:
+			jumpDirecton = "middle"
+	motion.y = force
 
 func _jump_inertia():
 	
@@ -163,8 +203,13 @@ func _jump_inertia():
 				airInertia *= 1.53
 			motion.x = airInertia
 
+#needs to be implemented for slower falling when recieving hit
+func _set_gravity(value: int):
+	fall = value
+
+#FLIP METHODS
 func _flip_player_right():
-	prevDirection = direction	
+	prevDirection = direction
 	if direction != 1:
 		direction = 1
 		scale.x = -1
@@ -175,47 +220,51 @@ func _flip_player_left():
 		direction = -1
 		scale.x = -1
 
+#ANIMATION RELATED METHODS
 func _play(animName):
 	$AnimationPlayer.play(animName)
-
-func _knock_back():
-	print("kncokback")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "lightAtt1" || anim_name == "lightAtt2" || anim_name == "heavyAttack":
 		if anim_name != "heavyAttack":
 			$Timer.start()
 		isAttacking = false
-		print(anim_name)
 	elif anim_name == "dying":
 		get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
+	elif anim_name == "hit":
+		if !is_on_floor():
+			_play("hitAir")
+	elif anim_name == "heavyFall":
+		isBeingHit = false
 
-func _hit_player():
-	hp -= 1
-
-func _evaluate_snap():
-	if(motion.y <= 0):
-		snap = Vector2.DOWN
-	else:
-		snap = Vector2.DOWN*32
-
-func _evaluate_slide():
-	if(abs(speed)>750):
-		slide = 0.2
-	elif(abs(speed)>400):
-		slide = 0.5
-	else:
-		slide = 0.6
+#HEALTH STATE METHODS
+func _hit_player(damage: int):
+	isAttacking = false
+	hp -= damage
 
 func _evaluate_death():
 	if is_on_floor():
 		_die()
 
-func _set_speed(value: int):
-	motion.x = value * direction
+func _die():
+	$AnimationPlayer.play("dying")
 
+#OTHERS
 func _on_fallzone_body_entered(body):
 	get_tree().change_scene("res://MainMenu/Special/YouDied.tscn")
 
-func _die():
-	$AnimationPlayer.play("dying")
+func _get_HP():
+	return hp
+
+func _is_attacking():
+	return !($AttackBox/CollisionShape2D.is_disabled() && $AttackBox/heavyCollision.is_disabled())
+
+func _set_speed(value: int, useDirection: bool = true):
+	if useDirection:
+		motion.x = value * direction
+	else:
+		motion.x = value
+	desired_speed = motion.x
+	speed = motion.x
+		
+
