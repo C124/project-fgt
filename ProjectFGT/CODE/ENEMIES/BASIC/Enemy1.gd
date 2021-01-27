@@ -114,5 +114,5 @@ func _on_attackBox_body_entered(body):
 	if(body == player):
 		player._hit_player(1)
 		if player._get_HP() > 0:
-			player._knock_back(direction,-1000,-700)
+			player._knock_back(direction,-1000,700)
 		

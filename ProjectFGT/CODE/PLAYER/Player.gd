@@ -5,8 +5,8 @@ var motion = Vector2(0,0)
 var movementPhase: String
 const PLAYERSPEED = 533
 const ACCELERATION = 2000
-var speed = 0
-var desired_speed = 0
+var speed = 0 #original speed during acceleration, which occurs only when changing directions
+var desired_speed = 0 #final speed during acceleration, can be used for long lasting static speed
 
 var airInertia = 0
 const GRAVITY = 30
@@ -61,7 +61,7 @@ func _physics_process(_delta):
 			elif !isBeingHit:
 				_play("idle")
 		elif isBeingHit:
-			_set_speed(speed)
+			motion.x = desired_speed
 		else:
 			_jump_inertia()
 
@@ -73,12 +73,14 @@ func _physics_process(_delta):
 	_fall_physics()
 	_evaluate_snap()
 	motion = move_and_slide_with_snap(motion,snap,Vector2.UP)
-	motion.x = lerp(motion.x,0,slide)
+	if !isAttacking:
+		motion.x = lerp(motion.x,0,slide)
 
 
 
 #COMBAT METHODS
 func _L_combat(value: int):
+	_set_speed(0)
 	isAttacking = true
 	if $Timer.is_stopped():
 		lastLightAttack = 1
@@ -90,17 +92,17 @@ func _L_combat(value: int):
 		_play("lightAtt2")
 
 func _R_combat():
+	_set_speed(0)
 	_play("heavyAttack")
 
 func _common_combat():
 	desired_speed = 0
-	motion.x = 0
 	speed = 0
 	isAttacking = true
 
 #MOVEMENT METHODS
 func _right_left_movement(index, _delta):
-		_evaluate_slide()		
+		_evaluate_slide()
 		if(prevDirection != direction):
 			speed = 0
 		desired_speed = PLAYERSPEED * index
@@ -129,14 +131,15 @@ func _right_left_movement(index, _delta):
 			speed = desired_speed
 		else:
 			speed += ACCELERATION * _delta * index
-		_set_speed(speed * direction)
+		motion.x = speed
 
 func _knock_back(sourceDirection: int,height: int, strength: int):
 	isBeingHit = true
 	_play("hit")
 	_jump_physics(height)
 	print(sourceDirection)
-	speed = sourceDirection * strength
+	_set_speed(sourceDirection * strength,false)
+	print(desired_speed)
 
 func _evaluate_snap():
 	if(motion.y <= 0):
@@ -198,12 +201,13 @@ func _jump_inertia():
 				airInertia *= 1.53
 			motion.x = airInertia
 
+#needs to be implemented for slower falling when recieving hit
 func _set_gravity(value: int):
 	fall = value
 
 #FLIP METHODS
 func _flip_player_right():
-	prevDirection = direction	
+	prevDirection = direction
 	if direction != 1:
 		direction = 1
 		scale.x = -1
@@ -233,6 +237,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 #HEALTH STATE METHODS
 func _hit_player(damage: int):
+	isAttacking = false
 	hp -= damage
 
 func _evaluate_death():
@@ -249,6 +254,12 @@ func _on_fallzone_body_entered(body):
 func _get_HP():
 	return hp
 
-func _set_speed(value: int):
-	motion.x = value * direction
+func _set_speed(value: int, useDirection: bool = true):
+	if useDirection:
+		motion.x = value * direction
+	else:
+		motion.x = value
+	desired_speed = motion.x
+	speed = motion.x
+		
 
