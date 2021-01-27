@@ -289,10 +289,8 @@ position = Vector2( 2, -58 )
 texture = ExtResource( 4 )
 vframes = 9
 hframes = 10
-frame = 42
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -313,7 +311,6 @@ anims/walk = SubResource( 14 )
 [node name="AttackBox" type="Area2D" parent="." groups=[
 "sword_dmg1",
 ]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
 position = Vector2( 60, -5.66965 )
@@ -330,4 +327,3 @@ disabled = true
 wait_time = 0.192
 one_shot = true
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="area_entered" from="AttackBox" to="." method="_on_AttackBox_area_entered"]

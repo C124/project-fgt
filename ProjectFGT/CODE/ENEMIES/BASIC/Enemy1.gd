@@ -95,7 +95,8 @@ func _on_sight_body_exited(body):
 
 func _on_hitBox_area_entered(body):
 	if body.is_in_group("sword_dmg1"):
-		hp -= 1
+		if (player._is_attacking()):
+			hp -= 1
 
 func _set_speed(value):
 	speed1 = value

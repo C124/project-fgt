@@ -136,6 +136,8 @@ func _right_left_movement(index, _delta):
 func _knock_back(sourceDirection: int,height: int, strength: int):
 	isBeingHit = true
 	_play("hit")
+	$AttackBox/CollisionShape2D.set_disabled(true)
+	$AttackBox/heavyCollision.set_disabled(true)
 	_jump_physics(height)
 	print(sourceDirection)
 	_set_speed(sourceDirection * strength,false)
@@ -253,6 +255,9 @@ func _on_fallzone_body_entered(body):
 
 func _get_HP():
 	return hp
+
+func _is_attacking():
+	return !($AttackBox/CollisionShape2D.is_disabled() && $AttackBox/heavyCollision.is_disabled())
 
 func _set_speed(value: int, useDirection: bool = true):
 	if useDirection:
