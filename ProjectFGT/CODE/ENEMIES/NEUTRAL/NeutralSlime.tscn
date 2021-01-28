@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://CODE/ENEMIES/NEUTRAL/NeutralSlime.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/ENEMIES/neutral enemy/slimeCrawl_clone1.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/ENEMIES/neutral enemy/slimeCrawl_clone.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24.1962, 12.0662 )
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "run"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -38,8 +38,7 @@ tracks/0/keys = {
 "values": [ 26, 27, 28, 29, 30, 31, 32, 33 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "transform"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -71,8 +70,8 @@ frame = 33
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/crawl = SubResource( 2 )
-anims/run = SubResource( 4 )
-anims/transform = SubResource( 3 )
+anims/run = SubResource( 3 )
+anims/transform = SubResource( 4 )
 
 [node name="RayCast2DPit" type="RayCast2D" parent="."]
 position = Vector2( -25.6719, 56.8684 )
