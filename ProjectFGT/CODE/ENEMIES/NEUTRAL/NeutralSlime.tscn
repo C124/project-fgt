@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://CODE/ENEMIES/NEUTRAL/NeutralSlime.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/ENEMIES/neutral enemy/slimeCrawl_clone.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/ENEMIES/neutral enemy/slimeCrawl_clone1.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24.1962, 12.0662 )
