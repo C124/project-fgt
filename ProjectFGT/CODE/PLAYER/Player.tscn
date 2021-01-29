@@ -278,7 +278,7 @@ tracks/0/keys = {
 extents = Vector2( 106.868, 32.6851 )
 
 [sub_resource type="RectangleShape2D" id=16]
-extents = Vector2( 53, 145.563 )
+extents = Vector2( 60.1696, 145.563 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_mask = 14
@@ -320,6 +320,7 @@ disabled = true
 [node name="heavyCollision" type="CollisionShape2D" parent="AttackBox"]
 position = Vector2( 99.4366, 0 )
 rotation = 1.5708
+scale = Vector2( 1.2, 1 )
 shape = SubResource( 16 )
 disabled = true
 

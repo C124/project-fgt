@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 
 export var spawnFacing: String = "right"
+onready var player = get_node("../../../Player")
 
 var motion = Vector2(0,0)
 const ENEMYSPEED = 80
@@ -10,7 +11,7 @@ const GRAVITY = 40
 var fall = GRAVITY
 var direction
 var enemyState: String = "calm"
-var max_hp = 1
+var max_hp = 4
 var hp
 
 
@@ -27,6 +28,9 @@ func _physics_process(delta):
 		$AnimationPlayer.play("crawl")
 	else:
 		queue_free()
+	
+	if hp == 2:
+		$AnimationPlayer.play("transform")
 	
 	
 	_fall_physics()
@@ -64,3 +68,9 @@ func _flip_enemy_right():
 	if direction != -1:
 		direction = -1
 		scale.x = -1
+
+func _on_hitBox_area_entered(body):
+	if body.is_in_group("sword_dmg1"):
+		if (player._is_attacking()):
+			hp -= 1
+			print("hittedhim")
