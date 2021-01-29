@@ -29,9 +29,12 @@ func _physics_process(delta):
 		if hp < max_hp:
 			$AnimationPlayer.play("run")
 			speed1 = ENEMYSPEED + 150
+			$AnimationPlayer.playback_speed = 1.85
+			enemyState = "run"
 		else:
 			$AnimationPlayer.play("crawl")
-			$AnimationPlayer.playback_speed = 1.85
+
+
 	else:
 		$AnimationPlayer.playback_speed = 1
 		queue_free()
@@ -88,8 +91,16 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_attackBox_body_entered(body):
-	if(body == player):
-		player._hit_player(1)
-		if player._get_HP() > 0:
-			player._knock_back(direction,-1000,700)
+	if enemyState == "run":
+		if(body == player):
+			player._hit_player(1)
+			if player._get_HP() > 0:
+				player._knock_back(direction,-1000,700)
 		
+
+
+func _on_sight_body_entered(body):
+	if player.global_position.x - 200 > global_position.x:
+		_flip_enemy_right()
+	elif player.global_position.x + 200 < global_position.x:
+			_flip_enemy_left()
