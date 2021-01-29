@@ -13,6 +13,7 @@ var direction
 var enemyState: String = "calm"
 var max_hp = 4
 var hp
+var firsthit = 1
 
 
 func _ready():
@@ -25,12 +26,14 @@ func _ready():
 
 func _physics_process(delta):
 	if hp > 0:
-		$AnimationPlayer.play("crawl")
+		if hp < max_hp:
+			$AnimationPlayer.play("run")
+			speed1 = ENEMYSPEED + 150
+		else:
+			$AnimationPlayer.play("crawl")
+			$AnimationPlayer.playback_speed = 1.8
 	else:
 		queue_free()
-	
-	if hp == 2:
-		$AnimationPlayer.play("transform")
 	
 	
 	_fall_physics()
@@ -73,4 +76,11 @@ func _on_hitBox_area_entered(body):
 	if body.is_in_group("sword_dmg1"):
 		if (player._is_attacking()):
 			hp -= 1
-			print("hittedhim")
+			if firsthit == 1:
+				$AnimationPlayer.play("transform")
+				firsthit = 0
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "transform":
+		enemyState = "run"
