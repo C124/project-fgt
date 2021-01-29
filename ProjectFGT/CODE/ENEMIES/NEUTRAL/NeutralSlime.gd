@@ -31,8 +31,9 @@ func _physics_process(delta):
 			speed1 = ENEMYSPEED + 150
 		else:
 			$AnimationPlayer.play("crawl")
-			$AnimationPlayer.playback_speed = 1.8
+			$AnimationPlayer.playback_speed = 1.85
 	else:
+		$AnimationPlayer.playback_speed = 1
 		queue_free()
 	
 	
@@ -84,3 +85,11 @@ func _on_hitBox_area_entered(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "transform":
 		enemyState = "run"
+
+
+func _on_attackBox_body_entered(body):
+	if(body == player):
+		player._hit_player(1)
+		if player._get_HP() > 0:
+			player._knock_back(direction,-1000,700)
+		

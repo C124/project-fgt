@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://CODE/ENEMIES/NEUTRAL/NeutralSlime.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/ENEMIES/neutral enemy/slimeCrawl_clone1.png" type="Texture" id=2]
@@ -55,6 +55,9 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 24.75, 13.125 )
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 67.6756, 60.3489 )
+
 [node name="NeutralSlime" type="KinematicBody2D"]
 collision_layer = 2147483664
 collision_mask = 2147483651
@@ -69,7 +72,7 @@ position = Vector2( 0, 7 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 11
-frame = 27
+frame = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/crawl = SubResource( 2 )
@@ -94,5 +97,12 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
 position = Vector2( -1.5, 43.625 )
 shape = SubResource( 5 )
+
+[node name="attackBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackBox"]
+position = Vector2( -93.9898, -3.11814 )
+shape = SubResource( 6 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="hitBox" to="." method="_on_hitBox_area_entered"]
+[connection signal="body_entered" from="attackBox" to="." method="_on_attackBox_body_entered"]
