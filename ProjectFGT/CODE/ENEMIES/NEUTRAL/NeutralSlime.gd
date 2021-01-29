@@ -97,10 +97,3 @@ func _on_attackBox_body_entered(body):
 			if player._get_HP() > 0:
 				player._knock_back(direction,-1000,700)
 		
-
-
-func _on_sight_body_entered(body):
-	if player.global_position.x - 200 > global_position.x:
-		_flip_enemy_right()
-	elif player.global_position.x + 200 < global_position.x:
-			_flip_enemy_left()
