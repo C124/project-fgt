@@ -289,8 +289,10 @@ position = Vector2( 2, -58 )
 texture = ExtResource( 4 )
 vframes = 9
 hframes = 10
+frame = 83
 
 [node name="collision" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -311,6 +313,7 @@ anims/walk = SubResource( 14 )
 [node name="AttackBox" type="Area2D" parent="." groups=[
 "sword_dmg1",
 ]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
 position = Vector2( 60, -5.66965 )
