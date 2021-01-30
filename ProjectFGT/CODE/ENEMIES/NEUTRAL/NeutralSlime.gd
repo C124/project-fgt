@@ -14,9 +14,6 @@ var enemyState: String = "calm"
 var max_hp = 4
 var hp
 var firsthit = 1
-var velocity = Vector2.ZERO
-var yes = null
-
 
 
 func _ready():
@@ -28,7 +25,6 @@ func _ready():
 	hp = max_hp
 
 func _physics_process(delta):
-	velocity = Vector2.ZERO
 	if hp > 0:
 		if hp < max_hp:
 			$AnimationPlayer.play("run")
@@ -37,13 +33,12 @@ func _physics_process(delta):
 			enemyState = "run"
 		else:
 			$AnimationPlayer.play("crawl")
+
+
 	else:
 		$AnimationPlayer.playback_speed = 1
 		queue_free()
 	
-	if player:
-		velocity = position.direction_to(player.position) * ENEMYSPEED
-	velocity = move_and_slide(velocity)
 	
 	_fall_physics()
 	motion.x = speed1 * direction
@@ -102,11 +97,3 @@ func _on_attackBox_body_entered(body):
 			if player._get_HP() > 0:
 				player._knock_back(direction,-1000,700)
 		
-
-
-func _on_sight_body_entered(body):
-	player = body
-
-
-func _on_sight_body_exited(body):
-	player = null
