@@ -15,6 +15,8 @@ var max_hp = 4
 var hp
 var firsthit = 1
 var enemyStateBefore: String = "alive"
+var yes = 1
+
 
 func _ready():
 	if spawnFacing == "right":
@@ -27,10 +29,16 @@ func _ready():
 func _physics_process(delta):
 	if hp > 0:
 		if hp < max_hp:
-			$AnimationPlayer.play("run")
-			speed1 = ENEMYSPEED + 275
-			$AnimationPlayer.playback_speed = 2
-			enemyState = "run"
+			if enemyState != "transform":
+				if yes == 1:
+					enemyStateBefore = "gonnaDie"
+					speed1 = 0
+					yes = 0
+				enemyStateBefore = "alive"
+				$AnimationPlayer.play("run")
+				speed1 = ENEMYSPEED + 275
+				$AnimationPlayer.playback_speed = 2
+				enemyState = "run"
 		else:
 			$AnimationPlayer.play("crawl")
 
@@ -88,6 +96,7 @@ func _on_hitBox_area_entered(body):
 		if (player._is_attacking()):
 			hp -= 1
 			if firsthit == 1:
+				enemyState = "transform"
 				$AnimationPlayer.play("transform")
 				firsthit = 0
 
