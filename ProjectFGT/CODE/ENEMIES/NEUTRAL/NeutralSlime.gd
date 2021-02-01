@@ -14,6 +14,8 @@ var enemyState: String = "calm"
 var max_hp = 4
 var hp
 var firsthit = 1
+var enemyStateBefore: String = "alive"
+var yes = 1
 
 
 func _ready():
@@ -27,17 +29,28 @@ func _ready():
 func _physics_process(delta):
 	if hp > 0:
 		if hp < max_hp:
-			$AnimationPlayer.play("run")
-			speed1 = ENEMYSPEED + 150
-			$AnimationPlayer.playback_speed = 1.85
-			enemyState = "run"
+			if enemyState != "transform":
+				if yes == 1:
+					enemyStateBefore = "gonnaDie"
+					speed1 = 0
+					yes = 0
+				enemyStateBefore = "alive"
+				$AnimationPlayer.play("run")
+				speed1 = ENEMYSPEED + 275
+				$AnimationPlayer.playback_speed = 2
+				enemyState = "run"
 		else:
 			$AnimationPlayer.play("crawl")
 
 
 	else:
+		enemyStateBefore = "gonnaDie"
 		$AnimationPlayer.playback_speed = 1
-		queue_free()
+		speed1 = 0
+		$AnimationPlayer.play("death")
+		if enemyState == "die":
+			queue_free()
+
 	
 	
 	_fall_physics()
@@ -45,13 +58,15 @@ func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2.UP)
 	
 	if $RayCast2DWall.is_colliding():
-		_flip_enemy()
-		print("stena")
-		
+		if enemyStateBefore == "alive":
+			_flip_enemy()
+			print("stena")
+			
 
 	if is_on_floor():
-		if !$RayCast2DPit.is_colliding():
-			_flip_enemy()
+		if enemyStateBefore == "alive":
+			if !$RayCast2DPit.is_colliding():
+				_flip_enemy()
 
 func _fall_physics():
 			if fall > 53:
@@ -81,6 +96,7 @@ func _on_hitBox_area_entered(body):
 		if (player._is_attacking()):
 			hp -= 1
 			if firsthit == 1:
+				enemyState = "transform"
 				$AnimationPlayer.play("transform")
 				firsthit = 0
 
@@ -88,10 +104,12 @@ func _on_hitBox_area_entered(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "transform":
 		enemyState = "run"
+	if anim_name == "death":
+		enemyState = "die"
 
 
 func _on_attackBox_body_entered(body):
-	if enemyState == "run":
+	if enemyState == "run" && enemyStateBefore == "alive":
 		if(body == player):
 			player._hit_player(1)
 			if player._get_HP() > 0:
