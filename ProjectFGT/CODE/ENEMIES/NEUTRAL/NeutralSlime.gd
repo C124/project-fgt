@@ -28,8 +28,8 @@ func _physics_process(delta):
 	if hp > 0:
 		if hp < max_hp:
 			$AnimationPlayer.play("run")
-			speed1 = ENEMYSPEED + 150
-			$AnimationPlayer.playback_speed = 1.85
+			speed1 = ENEMYSPEED + 275
+			$AnimationPlayer.playback_speed = 2
 			enemyState = "run"
 		else:
 			$AnimationPlayer.play("crawl")
