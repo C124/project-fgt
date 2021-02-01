@@ -37,7 +37,8 @@ func _physics_process(delta):
 
 	else:
 		$AnimationPlayer.playback_speed = 1
-		queue_free()
+		$AnimationPlayer.play("death")
+
 	
 	
 	_fall_physics()
