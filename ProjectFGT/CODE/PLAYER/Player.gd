@@ -166,6 +166,7 @@ func _fall_physics():
 			if is_on_floor():
 				fall = 40
 			elif !isBeingHit: 
+				isAttacking = false
 				if motion.y > JUMPFORCE/2 && motion.y < -JUMPFORCE/2 :
 					_play("airTop")
 				elif motion.y < JUMPFORCE/2:
